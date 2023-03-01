@@ -1,0 +1,39 @@
+apiVersion: skaffold/v4beta2
+kind: Config
+deploy:
+  kubectl:
+    remoteManifests: 
+      - ./k8s
+build:
+  local:
+    push: false
+  artifacts:
+  - image: svc1-app-image
+    context: ./svc1
+    docker:
+      dockerfile: Dockerfile.dev
+    sync: 
+      manual:
+        - dest: .
+          src: "**/*.go"
+  - image: svc2-app-image
+    context: ./svc2
+    docker:
+      dockerfile: Dockerfile.dev
+    sync: 
+      manual:
+        - dest: .
+          src: "**/*.go"
+  - image: rest-api-image
+    context: ./rest-api
+    docker:
+      dockerfile: Dockerfile.dev
+    sync: 
+      manual:
+        - dest: .
+          src: "**/*.go"
+portForward:
+- resourceType: deployment
+  resourceName: rest-api
+  port: 3000
+  localPort: 3000

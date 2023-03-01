@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-api
+  template:
+    metadata:
+      labels:
+        app: rest-api
+    spec:
+      containers:
+        - name: rest-api
+          image: rest-api-image
+          ports:
+            - containerPort: 3000
+          env:
+            - name: SVC1_URL
+              value: "svc1-service.default"
+            - name: SVC2_URL
+              value: "svc2-service.default"

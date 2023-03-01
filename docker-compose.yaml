@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  svc1:
+    build:
+      context: ./svc1
+      dockerfile: Dockerfile.dev
+    ports:
+      - 50050:50050
+    volumes:
+      - ./:/svc1
+  svc2:
+    build:
+      context: ./svc2
+      dockerfile: Dockerfile.dev
+    ports:
+      - 50051:50051
+    volumes:
+      - ./:/svc2
+  rest-api:
+    build:
+      context: ./rest-api
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    environment:
+      SVC1_URL: svc1
+      SVC2_URL: svc2
+    volumes:
+      - ./:/rest-api

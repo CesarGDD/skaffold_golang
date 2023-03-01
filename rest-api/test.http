@@ -1,0 +1,16 @@
+POST http://localhost:3000/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "Puerco"
+}
+
+###
+
+POST http://localhost:3000/post HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Puerco",
+  "content" : "Mas puerco"
+}

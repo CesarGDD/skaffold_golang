@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svc2-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svc2-app
+  template:
+    metadata:
+      labels:
+        app: svc2-app
+    spec:
+      containers:
+        - name: svc2-app
+          image: svc2-app-image
+          ports:
+            - containerPort: 50052
