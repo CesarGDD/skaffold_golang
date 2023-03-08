@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"restAPI/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,8 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println(os.Getenv("SVC1_URL"))
-	fmt.Println(os.Getenv("SVC2_URL"))
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,

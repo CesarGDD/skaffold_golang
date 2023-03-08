@@ -37,3 +37,7 @@ portForward:
   resourceName: rest-api
   port: 3000
   localPort: 3000
+- resourceType: service
+  resourceName: svc1-service
+  port: 50050
+  localPort: 50050

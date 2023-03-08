@@ -16,4 +16,4 @@ spec:
         - name: svc1-app
           image: svc1-app-image
           ports:
-            - containerPort: 50051
+            - containerPort: 50050
