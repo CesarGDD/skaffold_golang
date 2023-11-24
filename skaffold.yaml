@@ -1,9 +1,17 @@
 apiVersion: skaffold/v4beta2
 kind: Config
 deploy:
-  kubectl:
-    remoteManifests: 
-      - ./k8s
+  helm:
+    releases:
+      - name: test
+        chartPath: ./chart
+        valuesFiles:
+          - ./chart/values.yaml
+        setValues:
+          # svc1-app.image: svc1-app-image
+          # svc2-app.image: svc2-app-image
+          # rest-api.image: rest-api-image
+        wait: true
 build:
   local:
     push: false
@@ -11,27 +19,33 @@ build:
   - image: svc1-app-image
     context: ./svc1
     docker:
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     sync: 
       manual:
         - dest: .
           src: "**/*.go"
+        - dest: ./config/
+          src: "config/.air.toml"
   - image: svc2-app-image
     context: ./svc2
     docker:
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     sync: 
       manual:
         - dest: .
           src: "**/*.go"
+        - dest: ./config/
+          src: "config/.air.toml"
   - image: rest-api-image
     context: ./rest-api
     docker:
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     sync: 
       manual:
         - dest: .
           src: "**/*.go"
+        - dest: ./config/
+          src: "config/.air.toml"
 portForward:
 - resourceType: deployment
   resourceName: rest-api

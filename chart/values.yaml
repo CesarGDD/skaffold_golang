@@ -1,0 +1,26 @@
+deployments:
+  - name: rest-api
+    replicaCount: 1
+    image: rest-api-image
+    containerPort: 3000
+    env:
+      SVC1_URL: "svc1-service.default"
+      SVC2_URL: "svc2-service.default"
+  - name: svc1-app
+    replicaCount: 1
+    image: svc1-app-image
+    containerPort: 50050
+  - name: svc2-app
+    replicaCount: 1
+    image: svc2-app-image
+    containerPort: 50051
+
+services:
+  - name: svc1-service
+    appName: svc1-app
+    port: 50050
+    targetPort: 50050
+  - name: svc2-service
+    appName: svc2-app
+    port: 50051
+    targetPort: 50051

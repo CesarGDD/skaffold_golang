@@ -3,27 +3,29 @@ services:
   svc1:
     build:
       context: ./svc1
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     ports:
       - 50050:50050
     volumes:
-      - ./:/svc1
+      - ./svc1:/app  # Mounts only the svc1 directory
+
   svc2:
     build:
       context: ./svc2
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     ports:
       - 50051:50051
     volumes:
-      - ./:/svc2
+      - ./svc2:/app  # Mounts only the svc2 directory
+
   rest-api:
     build:
       context: ./rest-api
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     ports:
       - 3000:3000
     environment:
       SVC1_URL: svc1
       SVC2_URL: svc2
     volumes:
-      - ./:/rest-api
+      - ./rest-api:/app  # Mounts only the rest-api directory
